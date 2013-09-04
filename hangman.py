@@ -84,7 +84,8 @@ def game():
             print "You've already guessed that letter!"
             raw_input()
         elif letter in word:
-            letters.append(letter)
+            for i in xrange(word.count(letter)):
+                letters.append(letter)
             if len(letters) == len(word):
                 clear()
                 print 'Congratulations, you won!'
