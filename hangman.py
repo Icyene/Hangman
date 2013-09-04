@@ -1,5 +1,6 @@
 #!/usr/bin/python
 import os
+import sys
 
 NOOSE = [
     ' /-----',
@@ -65,16 +66,16 @@ def game():
     wrong = []
 
     while turn < 5:
-        print 'Hangman. Wrongs: ' + str(turn) + '/5.'
+        print 'Hangman. Wrongs: %s/5.' % turn
         print '--------------------------------\n'
         draw_noose(turn)
 
-        print "You've already guessed the letters: " + ', '.join(wrong)
+        print "You've already guessed the letters:", ', '.join(wrong)
 
         decoded = ''
         for char in word:
             decoded += (char if char in letters else '*')
-        print "So far, you've decoded '" + decoded + "'"
+        print "So far, you've decoded '%s'" % decoded
 
         letter = raw_input('\nInput a letter: ').upper()
         if len(letter) != 1:
@@ -88,9 +89,10 @@ def game():
                 letters.append(letter)
             if len(letters) == len(word):
                 clear()
-                print 'Congratulations, you won!'
+                print 'Congratulations, you won! Hit enter to exit.'
                 raw_input()
-                break
+                clear()
+                return
         else:
             wrong.append(letter)
             turn += 1
@@ -98,7 +100,7 @@ def game():
 
     draw_noose(turn)
     print "\nYou lost, try again!"
-    print "The word in question was '" + word + "'. You got so far as '" + decoded + ".\n"
+    print "The word in question was '%s'. You got so far as '%s.\n" % (word, decoded)
     print 'Thanks for playing! Hit enter to exit.'
     raw_input()
     clear()
